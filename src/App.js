@@ -54,7 +54,7 @@ function App() {
   };
 
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/moncal">
       <AppBar></AppBar>
       <Routes>
         <Route
