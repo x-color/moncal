@@ -1,4 +1,5 @@
 import * as React from "react";
+import Papa from "papaparse";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import List from "@mui/material/List";
@@ -30,7 +31,7 @@ export default function ItemTable({ items, uploadHandler }) {
 
   const readCsvFile = async (file) => {
     const csv = await file.text();
-    return csv.split(/\r\n|\n/).map((row) => row.split(","));
+    return Papa.parse(csv).data;
   };
 
   return (
