@@ -23,7 +23,7 @@ function ItemList({ items, addHandler, removeHandler, deleteHandler }) {
           mx: "5px",
         }}
       >
-        {`${item.price} 円`}
+        {`${item.priceForView} 円`}
       </Typography>
     );
 
@@ -31,9 +31,10 @@ function ItemList({ items, addHandler, removeHandler, deleteHandler }) {
       if (item.discount > 0) {
         return (
           <Typography display="inline" color="red" sx={{ mx: "5px" }}>
-            {`→ ${(item.price * (100 - item.discount)) / 100} 円 (${
-              item.discount
-            }%引き)`}
+            {`→ ${(
+              (item.price * (100 - item.discount)) /
+              100
+            ).toLocaleString()} 円 (${item.discount}%引き)`}
           </Typography>
         );
       }
@@ -114,7 +115,11 @@ function ItemList({ items, addHandler, removeHandler, deleteHandler }) {
         );
       })}
       <Divider />
-      <ListItem secondaryAction={<ListItemText primary={sum(items)} />}>
+      <ListItem
+        secondaryAction={
+          <ListItemText primary={`${sum(items).toLocaleString()} 円`} />
+        }
+      >
         <ListItemAvatar>
           <CurrencyYenIcon />
         </ListItemAvatar>

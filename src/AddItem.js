@@ -15,6 +15,7 @@ const nullItem = {
   category: "",
   name: "",
   price: 0,
+  priceForView: "0",
   num: 0,
 };
 
@@ -50,7 +51,12 @@ export default function AddItem({ items, handler }) {
 
   const handleAdd = () => {
     if (item.name !== "" && num > 0) {
-      handler({ ...item, num: num, discount: discount });
+      handler({
+        ...item,
+        num: num,
+        discount: discount,
+        priceForView: item.price.toLocaleString(),
+      });
     }
     setOpen(false);
   };

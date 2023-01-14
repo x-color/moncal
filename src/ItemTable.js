@@ -22,7 +22,8 @@ export default function ItemTable({ items, uploadHandler }) {
         return {
           category: row[0],
           name: row[1],
-          price: row[2],
+          price: parseInt(row[2].replaceAll(",", "").replaceAll("¥", "")),
+          priceFroView: row[2].replaceAll("¥", ""),
         };
       });
 
@@ -46,7 +47,9 @@ export default function ItemTable({ items, uploadHandler }) {
           return (
             <ListItem
               key={`itemtable-${i}`}
-              secondaryAction={<ListItemText primary={`${item.price} 円`} />}
+              secondaryAction={
+                <ListItemText primary={`${item.priceFroView} 円`} />
+              }
             >
               <ListItemAvatar>
                 <BrushIcon />
