@@ -2,6 +2,8 @@ import * as React from "react";
 import AppBar from "./AppBar";
 import ItemList from "./ItemList";
 import AddItem from "./AddItem";
+import AddMemo from "./AddMemo";
+import Memo from "./Memo";
 import ItemTable from "./ItemTable";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -12,6 +14,10 @@ function App() {
     JSON.parse(localStorage.getItem("items")) || []
   );
   const [cart, setCart] = React.useState([]);
+  const [memo, setMemo] = React.useState({
+    url: "",
+    txt: "",
+  });
 
   const AddItemHandler = (item) => {
     let newCart;
@@ -29,6 +35,13 @@ function App() {
       newCart = [...cart, item];
     }
     setCart(newCart);
+  };
+
+  const AddMemoHandler = ({ url, txt }) => {
+    setMemo({
+      url,
+      txt,
+    });
   };
 
   const RemoveItemHandler = (item) => {
@@ -61,14 +74,23 @@ function App() {
           path="/"
           element={
             <Container maxwidth="m">
+              <Box sx={{ textAlign: "center", my: "16px" }}>
+                <Memo url={memo.url} txt={memo.txt} />
+              </Box>
               <ItemList
                 items={cart}
                 addHandler={AddItemHandler}
                 removeHandler={RemoveItemHandler}
                 deleteHandler={DeleteItemHandler}
               ></ItemList>
-              <Box sx={{ textAlign: "center" }}>
-                <AddItem items={items} handler={AddItemHandler}></AddItem>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                }}
+              >
+                <AddItem items={items} handler={AddItemHandler} />
+                <AddMemo items={items} handler={AddMemoHandler} />
               </Box>
             </Container>
           }
